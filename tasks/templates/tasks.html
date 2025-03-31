@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h1 class="text-center display-3 py-5">Tasks pending</h1>
+
+            <ul class="list-group">
+                {% for task in tasks %}
+                <a href="{% url 'task_detail' task.id %}">
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                {% if task.important %}
+                                <h2 class="fw-bold text-success">{{task.title}}</h2>
+                                {% else %}
+                                <p>{{task.title}}</p>
+                                {% endif %}
+                                <p>{{task.description}}</p>
+                            </div>
+
+                            <p>{{task.user.username}}</p>
+                        </div>
+                        <p>{{task.datecompleted|date:'M j Y:i'}}</p>
+                    </li>
+                    <!-- datecompleted solo se le asigna a las tareas que ya han sido completadas -->
+                </a>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</main>
+
+{% endblock %}
